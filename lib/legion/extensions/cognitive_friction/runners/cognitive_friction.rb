@@ -7,35 +7,33 @@ module Legion
         module CognitiveFriction
           include Helpers::Constants
 
-          if defined?(Legion::Extensions::Helpers::Lex)
-            include Legion::Extensions::Helpers::Lex
-          end
+          include Legion::Extensions::Helpers::Lex if defined?(Legion::Extensions::Helpers::Lex)
 
-          def set_current_state(engine: nil, state:, **)
+          def set_current_state(state:, engine: nil, **)
             eng = engine || default_engine
             eng.set_current_state(state: state)
             { success: true, state: eng.current_state }
           end
 
-          def set_friction(engine: nil, from_state:, to_state:, friction:, **)
+          def set_friction(from_state:, to_state:, friction:, engine: nil, **)
             eng = engine || default_engine
             eng.set_friction(from_state: from_state, to_state: to_state, friction: friction)
             { success: true, from_state: from_state, to_state: to_state, friction: friction }
           end
 
-          def get_friction(engine: nil, from_state:, to_state:, **)
+          def get_friction(from_state:, to_state:, engine: nil, **)
             eng = engine || default_engine
             friction = eng.get_friction(from_state: from_state, to_state: to_state)
             { success: true, from_state: from_state, to_state: to_state, friction: friction }
           end
 
-          def attempt_transition(engine: nil, to_state:, force: 0.5, **)
+          def attempt_transition(to_state:, engine: nil, force: 0.5, **)
             eng = engine || default_engine
             transition = eng.attempt_transition(to_state: to_state, force: force)
             { success: true, transition: transition.to_h, current_state: eng.current_state }
           end
 
-          def force_transition(engine: nil, to_state:, **)
+          def force_transition(to_state:, engine: nil, **)
             eng = engine || default_engine
             transition = eng.force_transition(to_state: to_state)
             { success: true, transition: transition.to_h, current_state: eng.current_state }

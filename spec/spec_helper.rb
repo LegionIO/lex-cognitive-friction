@@ -2,12 +2,14 @@
 
 require 'legion/extensions/cognitive_friction'
 
-module Legion
-  module Logging
-    def self.method_missing(_name, *_args, **_kwargs, &_block) = nil
-    def self.respond_to_missing?(_name, _include_private = false) = true
+unless defined?(Legion::Logging)
+  module Legion
+    module Logging
+      def self.method_missing(_name, *_args, **_kwargs, &) = nil
+      def self.respond_to_missing?(_name, _include_private = false) = true
+    end
   end
-end unless defined?(Legion::Logging)
+end
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

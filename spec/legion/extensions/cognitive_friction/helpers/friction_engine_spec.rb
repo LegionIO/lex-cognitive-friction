@@ -166,7 +166,6 @@ RSpec.describe Legion::Extensions::CognitiveFriction::Helpers::FrictionEngine do
 
   describe 'pruning' do
     it 'prunes oldest transition when limit reached' do
-      max = Legion::Extensions::CognitiveFriction::Helpers::Constants::MAX_TRANSITIONS
       stub_const('Legion::Extensions::CognitiveFriction::Helpers::Constants::MAX_TRANSITIONS', 3)
       eng = described_class.new
       4.times { |i| eng.attempt_transition(to_state: :"s#{i}", force: 0.9) }

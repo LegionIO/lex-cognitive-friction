@@ -17,9 +17,7 @@ module Legion
             @current_state = state.to_sym
           end
 
-          def current_state
-            @current_state
-          end
+          attr_reader :current_state
 
           def set_friction(from_state:, to_state:, friction:)
             key = :"#{from_state}_to_#{to_state}"
@@ -93,14 +91,14 @@ module Legion
 
           def friction_report
             {
-              current_state:       @current_state,
-              total_transitions:   @transitions.size,
-              successful:          successful_transitions.size,
-              resisted:            resisted_transitions.size,
-              success_rate:        success_rate,
-              average_friction:    average_friction,
-              friction_paths:      @friction_map.size,
-              highest_friction:    highest_friction_paths(limit: 3)
+              current_state:     @current_state,
+              total_transitions: @transitions.size,
+              successful:        successful_transitions.size,
+              resisted:          resisted_transitions.size,
+              success_rate:      success_rate,
+              average_friction:  average_friction,
+              friction_paths:    @friction_map.size,
+              highest_friction:  highest_friction_paths(limit: 3)
             }
           end
 
